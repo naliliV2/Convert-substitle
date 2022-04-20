@@ -2,3 +2,5 @@ todo/*
 finish/*
 temp/*
 test
+
+**/__pycache__
