@@ -13,7 +13,6 @@ def clean_data(data):
         if line != '':
             clean_data.append(line)
     return clean_data
-
  
 #Function to detect [Aegisub Project Garbage] and delete all the lines between while [Events]
 def delete_garbage(data):
@@ -71,15 +70,12 @@ def ass_to_dict(data, format):
             dict_data.append(dict(zip(format, line)))
     return dict_data
 
-data_original = read_file('temp/video1.mkv_clean.mkv_sub.txt')
-data = data_original.copy()
-data = clean_data(data)
+#Function to pop a line if the next line is identical to the previous line
+def delete_identical_lines(data):
+    for i in range(len(data)-1):
+        if data[i]['Text'] == data[i+1]['Text']:
+            data[i] = ''
 
-sub = delete_garbage(data)
-sub = clean_data(sub)
-format = format_ass(sub)
-sub = ass_to_dict(sub, format)
-
-#print sub lign by lign.
-for i in range(len(sub)):
-    print(sub[i])
+    #delete all line that are empty
+    data = [x for x in data if x != '']
+    return data
