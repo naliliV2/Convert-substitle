@@ -42,10 +42,10 @@ def choose_color():
 
 #Function make a SRT
 #arg 1 : list of dictionary with Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text (random order)
-def make_srt_from_ass(data):
+def make_srt_from_ass(data, style_allows, style_deny):
     #style_allows are 2 dict, the first is the style allowed, the second is the color (default is <font #ffffff)
     #Ex : {'Op french': "#ffffff"; 'Op romanji' : '#d86fe8'}
-    srt, style_allows, style_deny, nb_sub = '', {}, [], 0
+    srt, nb_sub = '', 0 
     for i in range(len(data)):
         
         #If style of data is in style_allows, then add the line to the SRT
@@ -62,30 +62,41 @@ def make_srt_from_ass(data):
         
         #If style of data is not in style_allows or style_deny, ask the user if he wants to add the style to style_allows or style_deny
         else:
-            print('\n' + data[i]['Style'] + ' is not in the list of allowed styles.\nDo you want to add it to the list of allowed styles? (y/+c/n) (+c = color)')
-            answer = input()
-            if answer == 'y':
-                srt += str(nb_sub+1) + '\n'
-                nb_sub += 1
-                style_allows[data[i]['Style']] = '#ffffff'
-                srt += data[i]['Start'] + ' --> ' + data[i]['End'] + '\n'
-                srt += f"<font color='{style_allows[data[i]['Style']]}'>" + data[i]['Text'] + '</font>' + '\n\n'
-        
-            elif answer == 'n':
-                style_deny.append(data[i]['Style'])
-                continue
-        
-            #If answer is +color, ask what color (in hexadecimal) 
-            elif answer[0] == '+color' or answer[0] == '+c' or answer[0] == '+':
-                print('\nWhat color do you want to add to the list of allowed styles?')
-                color = choose_color()
-                style_allows[data[i]['Style']] = color
-                srt += str(nb_sub+1) + '\n'
-                nb_sub += 1
-                srt += data[i]['Start'] + ' --> ' + data[i]['End'] + '\n'
-                srt += f"<font color='{style_allows[data[i]['Style']]}'>" + data[i]['Text'] + '</font>' + '\n\n'
-                
-            else:
-                print('\nPlease answer with y or n or +.\n')
-                continue
+            while(True):
+                print('\n' + data[i]['Style'] + ' is not in the list of allowed styles.\nDo you want to add it to the list of allowed styles? (y/+c/n) (+c = color)')
+                answer = input()
+                if answer == 'y':
+                    srt += str(nb_sub+1) + '\n'
+                    nb_sub += 1
+                    style_allows[data[i]['Style']] = '#ffffff'
+                    srt += data[i]['Start'] + ' --> ' + data[i]['End'] + '\n'
+                    srt += f"<font color='{style_allows[data[i]['Style']]}'>" + data[i]['Text'] + '</font>' + '\n\n'
+                    break
+            
+                elif answer == 'n':
+                    style_deny.append(data[i]['Style'])
+                    break 
+            
+                #If answer is +color, ask what color (in hexadecimal) 
+                elif answer[0] == '+color' or answer[0] == '+c' or answer[0] == '+':
+                    print('\nWhat color do you want to add to the list of allowed styles?')
+                    color = choose_color()
+                    style_allows[data[i]['Style']] = color
+                    srt += str(nb_sub+1) + '\n'
+                    nb_sub += 1
+                    srt += data[i]['Start'] + ' --> ' + data[i]['End'] + '\n'
+                    srt += f"<font color='{style_allows[data[i]['Style']]}'>" + data[i]['Text'] + '</font>' + '\n\n'
+                    break
+                    
+                else:
+                    print('\nPlease answer with y or n or +c.\n')
+
     return srt
+
+#Function save the SRT in a file
+#arg 1 : SRT
+#arg 2 : name of the file (with extension)
+def save_srt(srt, name):
+    with open(name, 'w') as f:
+        f.write(srt)
+
