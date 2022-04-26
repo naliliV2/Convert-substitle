@@ -6,5 +6,5 @@ $list = @() # decalre the list
 
 #Start list
 foreach($i in $list) {
-    dep/mkvextract.exe temp/$($i).mkv tracks -c utf-8 2:temp/$($i)_sub.txt
+    dep/mkvextract.exe temp/$($i).mkv tracks -c utf-8 2:temp/$($i)_sub.ass
 }
