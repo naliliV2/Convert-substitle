@@ -3,11 +3,14 @@ import os
 from extract_ass import *
 from create_srt import *
 
+#Variable globale (I don't have choices)
+style_allows, style_deny = {}, []
+
 #Create a list of dir of all .txt files in the current directory
-dirs = [f for f in os.listdir('temp') if f.endswith('.txt')]
+dirs = [f for f in os.listdir('temp') if f.endswith('.ass')]
 
 for video in dirs:
-    data_original = read_file('temp/video1_clean_sub.txt')
+    data_original = read_file(f'temp/{video}')
     data = data_original.copy()
     data = clean_data(data)
 
@@ -16,6 +19,7 @@ for video in dirs:
     format = format_ass(sub)
     sub = ass_to_dict(sub, format)
     sub = delete_identical_lines(sub)
-    sub = make_srt_from_ass(sub)
+    sub = make_srt_from_ass(sub, style_allows, style_deny)
 
-    print(sub)
+    #Create a file with the name of the video and the extension .srt
+    save_srt(sub, f'temp/{video[:-4]}' + '.srt')
