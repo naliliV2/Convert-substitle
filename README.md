@@ -47,5 +47,9 @@ For the moment it's very simple, you have to put your mkv in "Todo" and run" ``s
 > [mkvtoolnix](https://gitlab.com/mbunkus/mkvtoolnix/) (In the dir 'dep')
 
 # Contact me!
-<a href="mailto:nalili0000007@gmail.com"> Email </a> </br>
-discord: nalili#6666
+
+<div align="center">
+
+![](https://discord.c99.nl/widget/theme-2/381478305540341761.png)
+
+</div>
