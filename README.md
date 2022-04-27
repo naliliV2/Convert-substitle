@@ -7,7 +7,7 @@
 
 <br>
 
-![:nalili_convert_sub](https://count.getloli.com/get/@s:nalili_convert_sub?theme=rule34)
+![:nalili_convert_sub](https://count.getloli.com/get/@nalili_convert_sub?theme=rule34)
 </div>
 
 # About the repo
