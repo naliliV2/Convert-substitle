@@ -27,6 +27,7 @@ For the moment it's very simple, you have to put your mkv in "Todo" and run" ``s
 - [ ] Add documentation 
 - [ ] Added the ability to run the project via a terminal command to select the file and not put it in the `todo` folder
 - [ ] Try to find another way than going through tkinter to choose a colour easily.
+- [ ] Make cleaner comments in the programme
 - [ ] Make sure that the program does not extract the subtitles if there is already a `.srt` in the mkvfile
   - [ ] Added an optional arg to force it even if there is a .srt in the mkv file
   - [ ] Added an optional arg to choose only sub to convert (useful if there are many sub of several times the same language and you want to convert only one)
