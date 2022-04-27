@@ -1,9 +1,9 @@
 # Convert subtitle
 <div align="center">
 
-![:Convert-subtitle](https://img.shields.io/apm/l/Convert-subtitle?style=for-the-badge)
+![:License](https://img.shields.io/github/license/naliliV2/Convert-substitle?style=for-the-badge)
 ![:Version](https://img.shields.io/badge/Version-Alpha_1.0-brightgreen?style=for-the-badge)
-![:Size](https://img.shields.io/github/size/nalili/Convert-subtitle?style=for-the-badge)
+![:Size](https://img.shields.io/github/languages/code-size/naliliV2/Convert-substitle?style=for-the-badge)
 
 <br>
 
@@ -48,8 +48,4 @@ For the moment it's very simple, you have to put your mkv in "Todo" and run" ``s
 
 # Contact me!
 
-<div align="center">
-
 ![](https://discord.c99.nl/widget/theme-2/381478305540341761.png)
-
-</div>
