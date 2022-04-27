@@ -22,15 +22,21 @@ For the moment it's very simple, you have to put your mkv in "Todo" and run" ``s
 
 </br>
 
-# Todo list for to pass in 1.0
+*PS* : This project is tested on Windows 10, idk if it works on other OS (probably not because the .exe).
+
+# Todo list for to pass in Release 1.0
 
 - [ ] Add documentation 
 - [ ] Added the ability to run the project via a terminal command to select the file and not put it in the `todo` folder
 - [ ] Try to find another way than going through tkinter to choose a colour easily.
 - [ ] Make cleaner comments in the programme
+- [ ] Change the name of the output file (whitout the "Clean")
+- [ ] Use the temp folder in system
+- [ ] Multi OS support (Linux)
 - [ ] Make sure that the program does not extract the subtitles if there is already a `.srt` in the mkvfile
   - [ ] Added an optional arg to force it even if there is a .srt in the mkv file
   - [ ] Added an optional arg to choose only sub to convert (useful if there are many sub of several times the same language and you want to convert only one)
+  - [ ] Added an optional arg to choose the output folder
   - *probably more arg*
 
 <!-- - [ ] (Optional) Convert all python file to C++ or Rust for faster execution
