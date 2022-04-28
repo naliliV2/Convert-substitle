@@ -7,7 +7,7 @@
 
 <br>
 
-![:nalili](https://count.getloli.com/get/@s:nalili?theme=rule34)
+![:nalili](https://count.getloli.com/get/@nalili?theme=rule34)
 </div>
 
 # About the repo
@@ -24,9 +24,17 @@ For the moment it's very simple, you have to put your mkv in "Todo" and run" ``s
 
 *PS* : This project is tested on Windows 10, idk if it works on other OS (probably not because the .exe).
 
+# Get Help 
+
+```pwsh
+Get-Help .\start.ps1 -full
+Get-Help .\start.ps1 -parameter *
+```
+
 # Todo list for to pass in Alpha 2.0
 
 [Project Alpha 2.0](https://github.com/naliliV2/Convert-substitle/projects/1)
+
 [Milestone Alpha 2.0](https://github.com/naliliV2/Convert-substitle/milestone/1) 
 
 # Lib / Software use 
