@@ -1,14 +1,53 @@
-src/clean_mkv.ps1
-src/extract_sub.ps1
+<#
+.SYNOPSIS
+This is a core of this project
+.Description
+This file allows you to manage everything
+.PARAMETER input
+This is the directory of input all .mkv for extract the subtitle
+.PARAMETER output
+This is the directory of output all .mkv merge with .srt
+.NOTES
+    Author:  nalili
+    Version: Pre-Alpha 2.0
+#>
 
-Clear-Host
+Param(
+    [Parameter(
+        Mandatory,
+        HelpMessage="Enter the folder you want to convert.")] 
+    [Alias("input","i", "dir", "directory")]
+    [string[]]
+    $input_dir,
 
-py src/clean_sub/main.py 
+    [Parameter(
+        HelpMessage="Enter the folder where the files will go.")] 
+    [Alias("output", "o")] 
+    [string[]]
+    $output_dir
+)
 
-Clear-Host
+#Verify if $output is empty, set it to $input (directory where the files are)
+if ($null -eq $output_dir)
+{
+    $output_dir = $input_dir
+}
 
-src/merge_mkv.ps1
+function New-TemporaryDirectory {
+    $parent = [System.IO.Path]::GetTempPath()
+    [string] $name = [System.Guid]::NewGuid()
+    New-Item -ItemType Directory -Path (Join-Path $parent $name)
+}
 
-Clear-Host
+$TempDir = New-TemporaryDirectory
+
+src/clean_mkv.ps1 -dir $input_dir -output $TempDir
+src/extract_sub.ps1 -dir $TempDir -output $TempDir
+
+py ./src/exctract_sub_ass/main.py $TempDir 
+
+src/merge_mkv.ps1 -dir $TempDir -output $output_dir
+
+Remove-Item $TempDir -Recurse -Force
 
 Write-output "Completed"
