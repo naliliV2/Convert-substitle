@@ -21,21 +21,12 @@ Param(
     $input_dir,
 
     [Parameter(
+        Mandatory,
         HelpMessage="Enter the folder where the files will go.")] 
     [Alias("output", "o")] 
     [string[]]
     $output_dir
 )
-
-function New-TemporaryDirectory {
-    $parent = [System.IO.Path]::GetTempPath()
-    [string] $name = [System.Guid]::NewGuid()
-    New-Item -ItemType Directory -Path (Join-Path $parent $name)
-}
-
-if ($null -eq $output_dir) {
-    $output_dir = New-TemporaryDirectory
-}
 
 #make a list of all mkv files in the todo directory
 $list = @() # decalre the list
