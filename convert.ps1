@@ -40,14 +40,13 @@ Param(
 #Verify if $output is empty, set it to $input (directory where the files are)
 if ($null -eq $output_dir)
 {
-    $output_dir = $input_dir
+    $title = 'Overwrite the video'; $question = 'Are you sure you want to proceed?'; $choices = '&Yes', '&No'
+
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
+    if ($decision -eq 0) {$output_dir = $input_dir} 
+    else {Write-Error "Cancellation of video processing"; exit}
 }
 
-function New-TemporaryDirectory {
-    $parent = [System.IO.Path]::GetTempPath()
-    [string] $name = [System.Guid]::NewGuid()
-    New-Item -ItemType Directory -Path (Join-Path $parent $name)
-}
 
 if($one_by_one -eq $false -or $one_by_one -eq $null) 
 {
@@ -69,8 +68,6 @@ elseif ($one_by_one -eq $true)
     {
         $TempDir = New-TemporaryDirectory
 
-        src/clean_mkv.ps1 -dir $file -output $TempDir -each $true
-        src/extract_sub.ps1 -dir $TempDir -output $TempDir
         
         py ./src/exctract_sub_ass/main.py $TempDir 
         
