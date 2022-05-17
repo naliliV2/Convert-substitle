@@ -37,48 +37,65 @@ Param(
     $one_by_one = $false
 )
 
-#Verify if $output is empty, set it to $input (directory where the files are)
-if ($null -eq $output_dir)
-{
-    $title = 'Overwrite the video'; $question = 'Are you sure you want to proceed?'; $choices = '&Yes', '&No'
-
-    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
-    if ($decision -eq 0) {$output_dir = $input_dir} 
-    else {Write-Error "Cancellation of video processing"; exit}
+function New-TemporaryDirectory() { 
+    <#
+        .DESCRIPTION
+        Create a temp dir 
+    #>
+    
+    $parent = [System.IO.Path]::GetTempPath()
+    [string] $name = [System.Guid]::NewGuid()
+    New-Item -ItemType Directory -Path (Join-Path $parent $name)
 }
 
+function treatement_video($input_dir, $output_dir) {
+    <#
+        .DESCRIPTION
+        processes the MKV
+        .PARAMETER input_dir
+        Todo 
+        .PARAMETER output_dir
+        Todo
+    #>
 
-if($one_by_one -eq $false -or $one_by_one -eq $null) 
-{
-    $TempDir = New-TemporaryDirectory
+    $TempDir = New-TemporaryDirectory #Create temp dir
 
-    src/clean_mkv.ps1 -dir $input_dir -output $TempDir
-    src/extract_sub.ps1 -dir $TempDir -output $TempDir
+    src/clean_mkv.ps1 -dir $input_dir -output $TempDir #Clean the MKV for take less stockage
+    src/extract_sub.ps1 -dir $TempDir -output $TempDir #Extract sub in the mkv
+
+    py ./src/exctract_sub_ass/main.py $TempDir #Start the conversion
     
-    py ./src/exctract_sub_ass/main.py $TempDir 
+    src/merge_mkv.ps1 -dir $TempDir -output $output_dir #Merge the convertion in the video 
     
-    src/merge_mkv.ps1 -dir $TempDir -output $output_dir
-    
-    Remove-Item $TempDir -Recurse -Force
+    Remove-Item $TempDir -Recurse -Force #Remove temp dir 
 }
-elseif ($one_by_one -eq $true)
-{
-    $files = Get-ChildItem -Path $input_dir -Recurse -Filter "*.mkv"   
-    foreach ($file in $files)
+
+function main() {
+
+    #Verify if $output is empty, set it to $input (directory where the files are)
+    if ($null -eq $output_dir)
     {
-        $TempDir = New-TemporaryDirectory
+        $title = 'Overwrite the video'; $question = 'Are you sure you want to proceed?'; $choices = '&Yes', '&No'
 
-        
-        py ./src/exctract_sub_ass/main.py $TempDir 
-        
-        src/merge_mkv.ps1 -dir $TempDir -output $output_dir
-        
-        Remove-Item $TempDir -Recurse -Force
+        $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1) #Ask to the user if he is sure to choose input_dir to output_dir 
+        if ($decision -eq 0) {$output_dir = $input_dir} 
+        else {Write-Error "Cancellation of video processing"; exit}
+    }
+
+
+    if($one_by_one -eq $false -or $one_by_one -eq $null) 
+    {
+        treatement_video($input_dir, $output_dir)
+    }
+    elseif ($one_by_one -eq $true)
+    {
+        $files = Get-ChildItem -Path $input_dir -Recurse -Filter "*.mkv"   
+        foreach ($file in $files)
+        {
+            treatement_video($file, $output_dir)
+        }
     }
 }
-else
-{
-    Write-Host "Error : $one_by_one is not a boolean"
-}
 
+main()
 Write-output "Completed"
