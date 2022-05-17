@@ -16,7 +16,7 @@ This repo aims to make a simple, fast, effective converter to transform all .ass
 
 # How it works
 
-For the moment it's very simple, you have to put your mkv in "Todo" and run" ``start.ps1``
+For the moment it's very simple, you have to put your mkv in "Todo" and run" ``convert.ps1`` (with the correct arg, read the "Get help" section to learn more)
 
 <div style="color: rgb(207, 80, 80);">WARNING:</div> This programme is not really very functional yet and only works for a small number of videos with specific characteristics. THE BIGGEST BASE HAS BEEN MADE.
 
