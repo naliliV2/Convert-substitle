@@ -4,6 +4,7 @@
 ![:License](https://img.shields.io/github/license/naliliV2/Convert-substitle?style=for-the-badge)
 ![:Version](https://img.shields.io/badge/Version-Alpha_1.0-brightgreen?style=for-the-badge)
 ![:Size](https://img.shields.io/github/languages/code-size/naliliV2/Convert-substitle?style=for-the-badge)
+![:Size_Total](https://img.shields.io/github/repo-size/naliliv2/Convert-substitle?style=for-the-badge)
 
 <br>
 
