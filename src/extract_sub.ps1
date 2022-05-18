@@ -30,7 +30,7 @@ Param(
 
 #make a list of all mkv files in the todo directory
 $list = @() # decalre the list
-(Get-ChildItem -Path $output_dir).BaseName | ForEach-Object{
+(Get-ChildItem -Path $input_dir).BaseName | ForEach-Object{
     $list += $_ # fill the list for each gci output
 }
 
@@ -40,7 +40,9 @@ foreach($i in $list) {
     #make a percent and round it to 2 decimals
     $percent = [Math]::round(($nb/$list.Count)*100,2)
 
+    Write-Output $output_dir\$($i)_sub.ass
+
     Write-Progress -Activity "Extract sub video" -Status "$percent% Complete" -PercentComplete $percent 
-    dep/mkvextract.exe $output_dir/$($i).mkv tracks -c utf-8 2:$output_dir/$($i)_sub.ass  >$null 2>&1
+    dep/mkvextract.exe $input_dir\$($i).mkv tracks -c utf-8 2:$output_dir\$($i)_sub.ass  #>$null 2>&1
     $nb++
 }
