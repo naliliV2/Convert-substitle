@@ -48,14 +48,10 @@ function New-TemporaryDirectory() {
     New-Item -ItemType Directory -Path (Join-Path $parent $name)
 }
 
-function treatement_video($input_dir, $output_dir) {
+function treatement_video{
     <#
         .DESCRIPTION
         processes the MKV
-        .PARAMETER input_dir
-        Todo 
-        .PARAMETER output_dir
-        Todo
     #>
 
     $TempDir = New-TemporaryDirectory #Create temp dir
@@ -70,8 +66,7 @@ function treatement_video($input_dir, $output_dir) {
     Remove-Item $TempDir -Recurse -Force #Remove temp dir 
 }
 
-function main() {
-
+function main {
     #Verify if $output is empty, set it to $input (directory where the files are)
     if ($null -eq $output_dir)
     {
@@ -85,17 +80,17 @@ function main() {
 
     if($one_by_one -eq $false -or $one_by_one -eq $null) 
     {
-        treatement_video($input_dir, $output_dir)
+        treatement_video
     }
     elseif ($one_by_one -eq $true)
     {
         $files = Get-ChildItem -Path $input_dir -Recurse -Filter "*.mkv"   
         foreach ($file in $files)
         {
-            treatement_video($file, $output_dir)
+            treatement_video
         }
     }
 }
 
-main()
+main
 Write-output "Completed"

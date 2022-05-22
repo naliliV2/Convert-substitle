@@ -12,7 +12,8 @@ def main(argv: list) -> None:
     dirs = [f for f in os.listdir(argv[1]) if f.endswith('.ass')]
 
     for video in dirs:
-        data = video
+        data = read_file(argv[1]+'\\'+video)
+        
         data = clean_data(data)
 
         sub = delete_garbage(data)

@@ -45,6 +45,5 @@ for ($i = 0; $i -lt $list_video.Count; $i++) {
 
     Write-Progress -Activity "Merge .SRT in .MKV" -Status "$percent% Complete" -PercentComplete $percent 
 
-
     .\dep\mkvmerge.exe -o $output_dir\$($list_video[$i]) $input_dir\$($list_video[$i]) $input_dir\$($list_sub[$i]) >$null 2>&1
 }
