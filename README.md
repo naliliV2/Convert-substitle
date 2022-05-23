@@ -8,7 +8,7 @@
 
 <br>
 
-![:nalili](https://count.getloli.com/get/@nalili?theme=rule34)
+![:nalili_sub](https://count.getloli.com/get/@nalili_sub?theme=rule34)
 </div>
 
 # About the repo
